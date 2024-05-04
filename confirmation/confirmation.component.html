@@ -1,0 +1,180 @@
+<div class="title-container" style="display: grid">
+  <h1 class="text-center"><span class="logo">Order</span> Confirmation</h1>
+  <img
+    class="img-fluid"
+    src="../assets/undraw_printing_invoices_-5-r4r.svg"
+    style="height: 400px"
+    alt=""
+  />
+</div>
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-12 col-md-8">
+      <p class="display-6">Thank you for your order.</p>
+      <h5>Your order details are as follows:</h5>
+    </div>
+    <div class="col-md-4 pull-right">
+      <span>
+        <a class="btn btn-link" (click)="continueShopping()"
+          ><i class="fa fa-shopping-basket" aria-hidden="true"></i> Continue
+          Shopping</a
+        >
+      </span>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-3">
+      <!-- *ngIf="confirmationService.cartInfo.ProductsCount > 0" -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8" style="border-right: solid 1px #dadada">
+      <div class="row mb-2">
+        <div class="col-lg-2 p-desc">Order Number:</div>
+        <div class="col">
+          {{ orderNumber }}
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-lg-2 p-desc">Transaction ID:</div>
+        <div class="col">
+          {{ transactionId }}
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-lg-2 p-desc">Ship To:</div>
+        <div class="col">
+          {{ this.confirmationService.shippingInfo.FirstName }}
+          {{ this.confirmationService.shippingInfo.LastName }}
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-lg-2 p-desc">Address:</div>
+        <div class="col">
+          {{ this.confirmationService.shippingInfo.Address }}<br />
+          {{ this.confirmationService.shippingInfo.City }},
+          {{ this.confirmationService.shippingInfo.State }}
+          {{ this.confirmationService.shippingInfo.Zip }}
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-lg-2 p-desc">Payment Info:</div>
+        <div class="col">
+          {{ this.confirmationService.paymentInfo.NameOnCard }}<br />
+          {{ this.confirmationService.paymentInfo.CardType }} -
+          {{ this.confirmationService.paymentInfo.CardNumber }}<br />
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-lg-2 p-desc">Ship Date:</div>
+        <div class="col">
+          {{ confirmationService.shipDate | date : "fullDate" }}
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-lg-2 p-desc">Delivery Date:</div>
+        <div class="col">
+          {{ confirmationService.deliveryDate | date : "fullDate" }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <h5 class="text-center">Order Totals</h5>
+      <div class="row">
+        <div class="col">
+          <span class="p-desc">Items: </span>
+          <span class="pull-right">{{
+            confirmationService.cartInfo.ProductsCount
+          }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="p-desc">Subtotal: </span
+          ><span class="pull-right">{{
+            confirmationService.cartInfo.Subtotal | currency
+          }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="p-desc">Tax: </span>
+          <span class="pull-right">{{
+            confirmationService.cartInfo.Tax | currency
+          }}</span>
+        </div>
+      </div>
+      <div class="row" *ngIf="confirmationService.shipping > 0">
+        <div class="col">
+          <span class="p-desc">Shipping: </span>
+          <span class="pull-right">{{
+            confirmationService.cartInfo.Shipping | currency
+          }}</span>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col">
+          <span class="p-desc">Grand Total: </span>
+          <span class="pull-right">{{
+            confirmationService.cartInfo.GrandTotal | currency
+          }}</span>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col">
+      <h5>Order Items</h5>
+      <hr style="margin-top: 0" />
+    </div>
+  </div>
+  <div
+    class="row mb-2"
+    *ngFor="
+      let product of confirmationService.cartInfo.SelectedProducts
+        | filterUnique
+    "
+  >
+    <div class="col-md-2 pb-2">
+      <img [src]="'data:image/png;base64,' + product.ThumbnailPhoto" />
+    </div>
+    <div class="col-md-3">
+      <span class="p-desc">{{ product.Name }}</span>
+    </div>
+    <div class="col-md-2">
+      <span class="p-desc">Price: </span>
+      <span>{{ product.Price | currency }}</span>
+    </div>
+    <div class="col-md-2">
+      <span class="p-desc">Quantity: </span>
+      <span>{{ product.LineCount }}</span>
+    </div>
+    <div class="col-md-3">
+      <span class="p-desc">Line Total: </span
+      ><span>{{ product.LineCount * product.Price | currency }}</span>
+    </div>
+    <div class="col">
+      <hr />
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col">
+      <small style="color: #585858">
+        * For
+        <strong>Demonstration purposes only</strong>. No actual consumer
+        information is saved on either the products, shopping cart, checkout, or
+        confirmation pages
+      </small>
+    </div>
+  </div>
+</div>
+<div
+  class="container div-center"
+  style="padding-top: 65px"
+  *ngIf="!(confirmationService.cartInfo.ProductsCount > 0)"
+>
+  <h5>No data available</h5>
+</div>
