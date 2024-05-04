@@ -1,0 +1,132 @@
+[
+  {
+    "ProductSubcategoryId": 1,
+    "SubCategoryName": "Mountain Bikes",
+    "ProductCategoryId": 1
+  },
+  {
+    "ProductSubcategoryId": 2,
+    "SubCategoryName": "Road Bikes",
+    "ProductCategoryId": 1
+  },
+  {
+    "ProductSubcategoryId": 3,
+    "SubCategoryName": "Touring Bikes",
+    "ProductCategoryId": 1
+  },
+  {
+    "ProductSubcategoryId": 4,
+    "SubCategoryName": "Handlebars",
+    "ProductCategoryId": 2
+  },
+  {
+    "ProductSubcategoryId": 7,
+    "SubCategoryName": "Chains",
+    "ProductCategoryId": 2
+  },
+  {
+    "ProductSubcategoryId": 9,
+    "SubCategoryName": "Derailleurs",
+    "ProductCategoryId": 2
+  },
+  {
+    "ProductSubcategoryId": 10,
+    "SubCategoryName": "Forks",
+    "ProductCategoryId": 2
+  },
+  {
+    "ProductSubcategoryId": 12,
+    "SubCategoryName": "Mountain Frames",
+    "ProductCategoryId": 2
+  },
+  {
+    "ProductSubcategoryId": 13,
+    "SubCategoryName": "Pedals",
+    "ProductCategoryId": 2
+  },
+  {
+    "ProductSubcategoryId": 15,
+    "SubCategoryName": "Saddles",
+    "ProductCategoryId": 2
+  },
+  {
+    "ProductSubcategoryId": 16,
+    "SubCategoryName": "Touring Frames",
+    "ProductCategoryId": 2
+  },
+  {
+    "ProductSubcategoryId": 17,
+    "SubCategoryName": "Wheels",
+    "ProductCategoryId": 2
+  },
+  {
+    "ProductSubcategoryId": 21,
+    "SubCategoryName": "Jerseys",
+    "ProductCategoryId": 3
+  },
+  {
+    "ProductSubcategoryId": 22,
+    "SubCategoryName": "Shorts",
+    "ProductCategoryId": 3
+  },
+  {
+    "ProductSubcategoryId": 26,
+    "SubCategoryName": "Bike Racks",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 27,
+    "SubCategoryName": "Bike Stands",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 28,
+    "SubCategoryName": "Bottles and Cages",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 29,
+    "SubCategoryName": "Cleaners",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 30,
+    "SubCategoryName": "Fenders",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 31,
+    "SubCategoryName": "Helmets",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 32,
+    "SubCategoryName": "Hydration Packs",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 33,
+    "SubCategoryName": "Lights",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 34,
+    "SubCategoryName": "Locks",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 35,
+    "SubCategoryName": "Panniers",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 36,
+    "SubCategoryName": "Pumps",
+    "ProductCategoryId": 4
+  },
+  {
+    "ProductSubcategoryId": 37,
+    "SubCategoryName": "Tires and Tubes",
+    "ProductCategoryId": 4
+  }
+]
