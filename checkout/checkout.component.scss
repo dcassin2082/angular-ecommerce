@@ -1,0 +1,30 @@
+$blue: #4ea1d3;
+$blue: #7098e7;
+// .btn-primary {
+//   background: $blue !important;
+//   border: $blue !important;
+//   border-radius: 0;
+// }
+.btn-primary {
+  background-color: #4874a0 !important;
+  color: #fff !important;
+  padding: 1rem !important;
+  border: transparent;
+}
+// label {
+//   margin-bottom: 0;
+//   font-weight: 500;
+// }
+.validation-error {
+  color: #dc3545;
+}
+.order-summary {
+  background: $blue;
+  cursor: auto;
+}
+
+.text-info {
+  color: #425058 !important;
+  cursor: pointer !important;
+  opacity: 50%;
+}

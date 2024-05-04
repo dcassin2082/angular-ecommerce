@@ -1,0 +1,749 @@
+<div class="title-container" style="display: grid">
+  <h1 class="text-center"><span class="logo">Check</span>out</h1>
+  <img
+    class="img-fluid"
+    src="../assets/undraw_printing_invoices_-5-r4r.svg"
+    style="height: 400px"
+    alt=""
+  />
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-7 pb-4">
+      <form
+        #form="ngForm"
+        (submit)="onSubmit(form)"
+        class="crud-form"
+        autocomplete="off"
+      >
+        <input
+          type="hidden"
+          name="CheckoutId"
+          #CheckoutId="ngModel"
+          [(ngModel)]="checkoutService.checkout.CheckoutId"
+        />
+        <div id="accordion">
+          <div class="card">
+            <div class="text-center text-white" id="headingOne">
+              <button
+                id="collapseOneLink"
+                class="btn btn-primary w-100"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                Shipping Info
+              </button>
+            </div>
+            <div
+              id="collapseOne"
+              class="collapse show"
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordion"
+            >
+              <div class="card-body">
+                <div class="form-row mb-2 offset-xl-1">
+                  <div class="col-xl-8 pb-2">
+                    <label for="FirstName" class="form-label">First Name</label
+                    ><span class="text-danger" *ngIf="FirstName.invalid">
+                      *</span
+                    >
+                    <input
+                      id="FirstName"
+                      type="text"
+                      name="FirstName"
+                      #FirstName="ngModel"
+                      [(ngModel)]="checkoutService.checkout.FirstName"
+                      required
+                      placeholder="First Name"
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="FirstName.invalid && FirstName.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                  <div class="col-xl-8">
+                    <label for="LastName" class="form-label">Last Name</label
+                    ><span class="text-danger" *ngIf="LastName.invalid">
+                      *</span
+                    >
+                    <input
+                      id="LastName"
+                      type="text"
+                      name="LastName"
+                      #LastName="ngModel"
+                      [(ngModel)]="checkoutService.checkout.LastName"
+                      required
+                      placeholder="Last Name"
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="LastName.invalid && LastName.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row mb-2 offset-xl-1">
+                  <div class="col-xl-8">
+                    <label for="ShippingAddress" class="form-label"
+                      >Shipping Address</label
+                    ><span class="text-danger" *ngIf="ShippingAddress.invalid">
+                      *</span
+                    >
+                    <input
+                      id="ShippingAddress"
+                      type="text"
+                      name="ShippingAddress"
+                      #ShippingAddress="ngModel"
+                      [(ngModel)]="checkoutService.checkout.ShippingAddress"
+                      required
+                      placeholder="Shipping Address"
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="ShippingAddress.invalid && ShippingAddress.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row mb-2 offset-xl-1">
+                  <div class="col-xl-8 pb-2">
+                    <label for="ShippingCity" class="form-label">City</label
+                    ><span class="text-danger" *ngIf="ShippingCity.invalid">
+                      *</span
+                    >
+                    <input
+                      id="ShippingCity"
+                      type="text"
+                      name="ShippingCity"
+                      #ShippingCity="ngModel"
+                      [(ngModel)]="checkoutService.checkout.ShippingCity"
+                      placeholder="City"
+                      required
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="ShippingCity.invalid && ShippingCity.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                  <div class="col-xl-8 pb-2">
+                    <label for="ShippingState" class="form-label">State</label
+                    ><span class="text-danger" *ngIf="ShippingState.invalid">
+                      *</span
+                    >
+                    <select
+                      id="ShippingState"
+                      appSelectRequiredValidator
+                      name="ShippingState"
+                      #ShippingState="ngModel"
+                      [(ngModel)]="checkoutService.checkout.ShippingState"
+                      required
+                      class="form-select"
+                    >
+                      <option disabled value="-1">--Select--</option>
+                      <option
+                        [value]="s.Abbreviation"
+                        *ngFor="let s of stateService.states"
+                      >
+                        {{ s.Abbreviation }} - {{ s.Name }}
+                      </option>
+                    </select>
+                    <div
+                      class="validation-error"
+                      *ngIf="ShippingState.invalid && ShippingState.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                  <div class="col-xl-8">
+                    <label for="ShippingZip" class="form-label">Zip</label
+                    ><span class="text-danger" *ngIf="ShippingZip.invalid">
+                      *</span
+                    >
+                    <input
+                      id="ShippingZip"
+                      mask="00000"
+                      type="text"
+                      name="ShippingZip"
+                      #ShippingZip="ngModel"
+                      [(ngModel)]="checkoutService.checkout.ShippingZip"
+                      placeholder="Shipping Zip"
+                      required
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="ShippingZip.invalid && ShippingZip.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row mb-2 offset-xl-1">
+                  <div class="col-xl-8 pb-2">
+                    <label for="Phone" class="form-label">Phone</label
+                    ><span class="text-danger" *ngIf="Phone.invalid"> *</span>
+                    <input
+                      id="Phone"
+                      mask="(000)-000-0000"
+                      type="text"
+                      name="Phone"
+                      #Phone="ngModel"
+                      [(ngModel)]="checkoutService.checkout.Phone"
+                      placeholder="Phone"
+                      required
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="Phone.invalid && Phone.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                  <div class="col-xl-8">
+                    <label for="Email" class="form-label">Email</label
+                    ><span class="text-danger" *ngIf="Email.invalid"> *</span>
+                    <input
+                      id="Email"
+                      type="email"
+                      name="Email"
+                      #Email="ngModel"
+                      [(ngModel)]="checkoutService.checkout.Email"
+                      required
+                      [email]="true"
+                      placeholder="Email Address"
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="Email.invalid && Email.touched"
+                    >
+                      Required
+                    </div>
+                    <div
+                      class="validation-error"
+                      *ngIf="Email.touched && Email.errors?.email"
+                    >
+                      Invalid email.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="text-center text-white" id="headingTwo">
+              <button
+                class="btn btn-primary w-100 collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                Payment Info
+              </button>
+            </div>
+            <div
+              id="collapseTwo"
+              class="collapse"
+              aria-labelledby="headingTwo"
+              data-bs-parent="#accordion"
+            >
+              <div class="card-body">
+                <div class="form-row mb-2">
+                  <div class="col pb-2">
+                    <div class="pull-right form-check form-switch">
+                      <input
+                        id="switch1"
+                        type="checkbox"
+                        class="form-check-input"
+                        #chk
+                        (change)="setBillingAddress()"
+                        checked="checked"
+                      />
+                      <label
+                        class="custom-control-label form-label"
+                        for="switch1"
+                      >
+                        Use Shipping Address</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row mb-2 offset-xl-1" *ngIf="!checked">
+                  <div class="col-xl-8 pb-2">
+                    <label for="BillingAddress" class="form-label"
+                      >Billing Address</label
+                    ><span class="text-danger" *ngIf="BillingAddress.invalid">
+                      *</span
+                    >
+
+                    <input
+                      id="BillingAddress"
+                      type="text"
+                      name="BillingAddress"
+                      #BillingAddress="ngModel"
+                      [(ngModel)]="checkoutService.checkout.BillingAddress"
+                      required
+                      placeholder="Billing Address"
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="BillingAddress.invalid && BillingAddress.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                  <div class="col-xl-8 pb-2">
+                    <label for="BillingCity" class="form-label">City</label
+                    ><span class="text-danger" *ngIf="BillingCity.invalid">
+                      *</span
+                    >
+                    <input
+                      id="BillingCity"
+                      type="text"
+                      name="BillingCity"
+                      #BillingCity="ngModel"
+                      [(ngModel)]="checkoutService.checkout.BillingCity"
+                      placeholder="City"
+                      required
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="BillingCity.invalid && BillingCity.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row mb-2 offset-xl-1" *ngIf="!checked">
+                  <div class="col-xl-8 pb-2">
+                    <label for="BillingState" class="form-label">State</label
+                    ><span class="text-danger" *ngIf="BillingState.invalid">
+                      *</span
+                    >
+                    <select
+                      id="BillingState"
+                      appSelectRequiredValidator
+                      name="BillingState"
+                      #BillingState="ngModel"
+                      [(ngModel)]="checkoutService.checkout.BillingState"
+                      required
+                      class="form-select"
+                    >
+                      <option value="-1">--Select--</option>
+                      <option
+                        [value]="s.Abbreviation"
+                        *ngFor="let s of stateService.states"
+                      >
+                        {{ s.Abbreviation }} - {{ s.Name }}
+                      </option>
+                    </select>
+                    <div
+                      class="validation-error"
+                      *ngIf="BillingState.invalid && BillingState.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                  <div class="col-xl-8 pb-2">
+                    <label for="BillingZip" class="form-label">Zip</label
+                    ><span class="text-danger" *ngIf="BillingZip.invalid">
+                      *</span
+                    >
+                    <input
+                      id="BillingZip"
+                      mask="00000"
+                      type="text"
+                      name="BillingZip"
+                      #BillingZip="ngModel"
+                      [(ngModel)]="checkoutService.checkout.BillingZip"
+                      placeholder="Zip"
+                      required
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="BillingZip.invalid && BillingZip.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row mb-2 offset-xl-1">
+                  <div class="col-xl-8 pb-2">
+                    <label for="NameOnCard" class="form-label"
+                      >Name On Card </label
+                    ><span class="text-danger" *ngIf="NameOnCard.invalid">
+                      *</span
+                    >
+                    <input
+                      id="NameOnCard"
+                      name="NameOnCard"
+                      #NameOnCard="ngModel"
+                      required
+                      [(ngModel)]="checkoutService.checkout.NameOnCard"
+                      placeholder="Enter name exactly as it appears on credit card"
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="NameOnCard.invalid && NameOnCard.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                  <div class="col-xl-8">
+                    <label for="CardNumber" class="form-label"
+                      >Credit Card Number
+                    </label>
+                    <span class="text-danger" *ngIf="CardNumber.invalid">
+                      *</span
+                    >
+                    <input
+                      id="CardNumber"
+                      mask="0000-0000-0000-0000"
+                      type="text"
+                      name="CardNumber"
+                      #CardNumber="ngModel"
+                      [(ngModel)]="checkoutService.checkout.CardNumber"
+                      required
+                      placeholder="xxxx-xxxx-xxxx-xxxx"
+                      class="form-control"
+                      (keyup)="
+                        validateCardNumber(checkoutService.checkout.CardNumber)
+                      "
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="CardNumber.invalid && CardNumber.touched"
+                    >
+                      Required
+                    </div>
+                    <div
+                      class="validation-error"
+                      *ngIf="result == 'Card number is Invalid'"
+                    >
+                      {{ result }}
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row mb-2 offset-xl-1">
+                  <div class="col-xl-4 pb-2">
+                    <label for="Month" class="form-label">Exp Month</label
+                    ><span class="text-danger" *ngIf="Month.invalid"> *</span>
+                    <select
+                      id="Month"
+                      appSelectRequiredValidator
+                      name="Month"
+                      required
+                      (change)="setSelectedMonth($event.target.value)"
+                      #Month="ngModel"
+                      [(ngModel)]="selectedMonth"
+                      class="form-select"
+                    >
+                      <option [value]="-1">--Select--</option>
+                      <option
+                        [value]="i"
+                        *ngFor="let i = index; let month; of: months"
+                      >
+                        {{ month }}
+                      </option>
+                    </select>
+                    <div
+                      class="validation-error"
+                      *ngIf="Month.invalid && Month.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                  <div class="col-xl-4 pb-2" *ngIf="Month.valid">
+                    <label for="Year" class="form-label">Exp Year</label
+                    ><span class="text-danger" *ngIf="Year.invalid"> *</span>
+                    <select
+                      id="Year"
+                      appSelectRequiredValidator
+                      name="Year"
+                      required
+                      #Year="ngModel"
+                      [(ngModel)]="selectedYear"
+                      (change)="setSelectedYear($event.target.value)"
+                      class="form-select"
+                    >
+                      <option [value]="-1">--Select--</option>
+                      <option [value]="year" *ngFor="let year of years">
+                        {{ year }}
+                      </option>
+                    </select>
+                    <div
+                      class="validation-error"
+                      *ngIf="Year.invalid && Year.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row mb-2 offset-xl-1">
+                  <div class="col-xl-4 pb-2" *ngIf="Month.valid">
+                    <label for="CCV" class="form-label">CCV</label
+                    ><span class="text-danger" *ngIf="CCV.invalid"> *</span>
+                    <input
+                      id="CCV"
+                      mask="000"
+                      name="CCV"
+                      required
+                      placeholder="CCV"
+                      #CCV="ngModel"
+                      [(ngModel)]="checkoutService.checkout.CCV"
+                      class="form-control"
+                    />
+                    <div
+                      class="validation-error"
+                      *ngIf="CCV.invalid && CCV.touched"
+                    >
+                      Required
+                    </div>
+                  </div>
+                  <div class="col-xl-4" *ngIf="CardNumber.valid">
+                    <label for="" class="form-label"
+                      >Card Type
+                      <i
+                        *ngIf="cardType == 'Visa'"
+                        class="fa fa-cc-visa fa-lg text-primary"
+                      ></i>
+                      <i
+                        *ngIf="cardType == 'Mastercard'"
+                        class="fa fa-cc-mastercard fa-lg text-danger"
+                      ></i>
+                      <i
+                        *ngIf="cardType == 'Discover'"
+                        class="fa fa-cc-discover fa-lg text-warning"
+                      ></i>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div id="headingThree">
+              <button
+                class="btn btn-primary w-100"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="false"
+                aria-controls="collapseThree"
+              >
+                Review & Submit
+              </button>
+            </div>
+            <div
+              id="collapseThree"
+              class="collapse"
+              aria-labelledby="headingThree"
+              data-bs-parent="#accordion"
+            >
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col">
+                    <h6>Ship To</h6>
+                    <p *ngIf="checkoutService.checkout.ShippingAddress != ''">
+                      {{ checkoutService.checkout.FirstName }}
+                      {{ checkoutService.checkout.LastName }}<br />
+                      {{ checkoutService.checkout.ShippingAddress }}<br />
+                      {{ checkoutService.checkout.ShippingCity }},
+                      {{ checkoutService.checkout.ShippingState }}
+                      {{ checkoutService.checkout.ShippingZip }}
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Cardholder Name</h6>
+                    <p>{{ checkoutService.checkout.NameOnCard }}</p>
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-md-6">
+                    <h6>Payment Method</h6>
+                    <p *ngIf="checkoutService.checkout.CardNumber">
+                      {{ cardType }}
+                      ****-****-****-{{
+                        checkoutService.checkout.CardNumber | slice : -4
+                      }}
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Amount</h6>
+                    <p>
+                      {{ grandTotal | currency }}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="row hide-mobile mb-2 div-center"
+                  *ngIf="form.valid && grandTotal > 0"
+                >
+                  <div class="col">
+                    <button
+                      (click)="onSubmit()"
+                      class="btn btn-link pull-right"
+                    >
+                      Submit Order
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-12 col-lg-5" data-spy="affix" data-offset-top="705">
+      <form action="">
+        <div class="card">
+          <div class="row">
+            <div class="col">
+              <!-- <h6 class="text-center text-white order-summary">
+                          <i class="bi bi-pass"></i> Order Summary
+                        </h6> -->
+
+              <div class="text-center text-white" id="headingOne">
+                <button
+                  class="btn btn-primary w-100 order-summary"
+                  type="button"
+                >
+                  Order Summary
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row mb-4">
+              <div class="col pb-2" style="font-weight: 500">
+                <p>Subtotal:</p>
+                <p>Tax:</p>
+                <p>Shipping:</p>
+              </div>
+              <div class="col">
+                <p class="p-desc">
+                  {{ subtotal | currency }}
+                </p>
+                <p class="p-desc">
+                  {{ tax | currency }}
+                </p>
+                <p class="p-desc">
+                  {{ shipping | currency }}
+                </p>
+              </div>
+            </div>
+            <hr style="margin-right: 30%" />
+            <div class="row mb-2">
+              <div class="col" style="font-weight: 500">
+                <span class="p-desc">Grand Total:</span>
+              </div>
+              <div class="col p-desc">
+                {{ grandTotal | currency }}
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col pull-right">
+                <button class="btn btn-link" (click)="backToCart()">
+                  <i class="fa fa-shopping-cart"></i> View Cart
+                </button>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col">
+                <span>
+                  <a class="btn btn-link" (click)="continueShopping()"
+                    ><i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                    Continue Shopping</a
+                  >
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-10 offset-lg-1 div-center">
+            <h6>Test Credit Card Numbers</h6>
+            <ul style="list-style: none">
+              <li>
+                <span id="visa"
+                  ><i
+                    class="fa fa-cc-visa fa-lg text-primary"
+                    aria-hidden="true"
+                  ></i>
+                  4111 1111 1111 1111 </span
+                ><i
+                  class="fa fa-clipboard text-info fa-sm"
+                  (click)="copyText('visa')"
+                  title="Copy"
+                  aria-hidden="true"
+                ></i>
+              </li>
+              <li>
+                <span id="mastercard"
+                  ><i
+                    class="fa fa-cc-mastercard fa-lg text-danger"
+                    aria-hidden="true"
+                  ></i>
+                  5555 5555 5555 4444 </span
+                ><i
+                  class="fa fa-clipboard text-info fa-sm"
+                  (click)="copyText('mastercard')"
+                  title="Copy"
+                  aria-hidden="true"
+                ></i>
+              </li>
+              <li>
+                <span id="discover"
+                  ><i
+                    class="fa fa-cc-discover fa-lg text-warning"
+                    aria-hidden="true"
+                  ></i>
+                  6011 0009 9803 4767 </span
+                ><i
+                  class="fa fa-clipboard text-info fa-sm"
+                  (click)="copyText('discover')"
+                  title="Copy"
+                  aria-hidden="true"
+                ></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 offset-2 div-center">
+            <hr />
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-10 offset-lg-1 div-center">
+            <small>
+              * For
+              <strong>Demonstration purposes only</strong>. No actual consumer
+              information is saved
+            </small>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
