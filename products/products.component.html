@@ -1,0 +1,297 @@
+<div class="title-container" style="display: grid">
+  <h1 class="text-center"><span class="logo">E-Commerce</span> Demo</h1>
+  <img
+    class="img-fluid"
+    src="../assets/undraw_printing_invoices_-5-r4r.svg"
+    style="height: 400px"
+    alt="Hero image"
+  />
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col pull-right" *ngIf="productService.productsCount > 0">
+      <button
+        (click)="productService.goToCart()"
+        class="btn btn-link pull-right"
+      >
+        <i class="fa fa-shopping-cart"></i> Cart ({{
+          productService.productsCount
+        }})
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-6 col-lg-3 pb-2">
+      <label class="form-label" for="category">Category</label>
+      <select
+        name="category"
+        id="category"
+        [(ngModel)]="productService.categoryId"
+        (change)="productService.getProductSubcategories($event.target.value)"
+        class="form-select"
+      >
+        <option value="-1">All Categories</option>
+        <option
+          *ngFor="let category of productService.productCategories"
+          [value]="category.ProductCategoryId"
+        >
+          {{ category.CategoryName }}
+        </option>
+      </select>
+    </div>
+    <div
+      class="col-12 col-sm-6 col-lg-3 pb-2"
+      *ngIf="productService.categoryId !== -1"
+    >
+      <label class="form-label" for="subcategory">Subcategory</label>
+      <select
+        name="subcategory"
+        id="selectSubcategory"
+        #subcat="ngModel"
+        [(ngModel)]="productService.subcategory"
+        (change)="setSubcategory($event.target.value)"
+        class="form-select"
+      >
+        <option disabled value="-1" disabled>Subcategory</option>
+        <option
+          *ngFor="let cat of productService.productSubCategories"
+          [value]="cat.ProductSubcategoryId"
+        >
+          {{ cat.SubCategoryName }}
+        </option>
+      </select>
+    </div>
+    <div
+      class="col-12 col-sm-6 col-lg-3 pb-2"
+      *ngIf="
+        productService.categoryId !== -1 && productService.product === null
+      "
+    >
+      <label class="form-label" for="selectSort">Sort Order</label>
+      <select
+        name="selectSort"
+        id="selectSort"
+        selectSort="ngModel"
+        [(ngModel)]="productService.sortTerm"
+        (change)="productService.sort($event.target.value)"
+        class="form-select"
+        aria-label="sort by select label"
+      >
+        <option disabled value="-1">Sort By</option>
+        <option value="sort-asc">Price: low to high</option>
+        <option value="sort-desc">Price: high to low</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row"></div>
+  <div *ngIf="productService.categoryId == -1">
+    <div class="row mb-4 mt-4">
+      <p class="display-6 text-center">
+        <strong>Bikes</strong>
+      </p>
+      <div
+        class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch"
+        *ngFor="
+          let product of productService.landingPage
+            | slice : 0 : 3
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: page };
+          trackBy: trackByFn
+        "
+      >
+        <div class="card mb-4">
+          <div class="card-header text-center">
+            <h5 (click)="productService.getProduct(product.ProductId)">
+              {{ product.Name }}
+            </h5>
+          </div>
+          <div class="card-body text-center">
+            <img
+              class="img-fluid object-fit-sm-contain"
+              (click)="productService.getProduct(product.ProductId)"
+              [src]="'../../../assets/Large/' + product.LargePhotoSrc + '.png'"
+            />
+            <div class="row mt-5 card-no-click">
+              <div>
+                <p>{{ product.Description }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <h6 class="text-center pb-2">{{ product.Price | currency }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5 mb-4">
+      <p class="display-6 text-center"><strong>Components</strong></p>
+      <div
+        class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch"
+        *ngFor="
+          let product of productService.landingPage
+            | slice : 3 : 12
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: page };
+          trackBy: trackByFn
+        "
+      >
+        <div
+          class="card mb-4"
+          (click)="productService.getProduct(product.ProductId)"
+        >
+          <div class="card-header text-center">
+            <h5>{{ product.Name }}</h5>
+          </div>
+          <div class="card-body text-center">
+            <img
+              class="img-fluid object-fit-sm-contain"
+              [src]="'../../../assets/Large/' + product.LargePhotoSrc + '.png'"
+            />
+            <div class="row mt-5">
+              <div>
+                <p>{{ product.Description }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <h6 class="text-center pb-2">{{ product.Price | currency }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5 mb-4 reveal">
+      <p class="display-6 text-center"><strong>Clothing</strong></p>
+      <div class="col-lg-2"></div>
+      <div
+        class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch"
+        *ngFor="
+          let product of productService.landingPage
+            | slice : 12 : 14
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: page };
+          trackBy: trackByFn
+        "
+      >
+        <div
+          class="card mb-4"
+          (click)="productService.getProduct(product.ProductId)"
+        >
+          <div class="card-header text-center">
+            <h5>{{ product.Name }}</h5>
+          </div>
+          <div class="card-body text-center">
+            <img
+              class="img-fluid object-fit-sm-contain"
+              [src]="'../../../assets/Large/' + product.LargePhotoSrc + '.png'"
+            />
+            <div class="row mt-5">
+              <div>
+                <p>{{ product.Description }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <h6 class="text-center pb-2">{{ product.Price | currency }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5 mb-4">
+      <p class="display-6 text-center reveal"><strong>Accessories</strong></p>
+      <div
+        class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch"
+        *ngFor="
+          let product of productService.landingPage
+            | slice : 14 : 19
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: page };
+          trackBy: trackByFn
+        "
+      >
+        <div
+          class="card mb-4"
+          (click)="productService.getProduct(product.ProductId)"
+        >
+          <div class="card-header text-center">
+            <h5>{{ product.Name }}</h5>
+          </div>
+          <div class="card-body text-center">
+            <img
+              class="img-fluid object-fit-sm-contain"
+              [src]="'../../../assets/Large/' + product.LargePhotoSrc + '.png'"
+            />
+            <div class="row mt-5">
+              <div>
+                <p>{{ product.Description }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <h6 class="text-center pb-2">{{ product.Price | currency }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="productService.categoryId !== -1">
+    <div class="row mt-5 mb-4">
+      <p class="display-6 text-center">
+        <strong>{{
+          productService.subcategory == -1
+            ? productService.category
+            : productService.productSubCategoryName
+        }}</strong>
+      </p>
+      <div
+        class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch"
+        *ngFor="
+          let product of productService.products
+            | paginate : { itemsPerPage: itemsPerPage, currentPage: page };
+          trackBy: trackByFn
+        "
+      >
+        <div
+          class="card mb-4"
+          (click)="productService.getProduct(product.ProductId)"
+        >
+          <div class="card-header text-center">
+            <h5>{{ product.Name }}</h5>
+          </div>
+          <div class="card-body text-center">
+            <img
+              class="img-fluid object-fit-sm-contain"
+              [src]="'../../../assets/Large/' + product.LargePhotoSrc + '.png'"
+            />
+            <div class="row mt-5">
+              <div>
+                <p>{{ product.Description }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <h6 class="text-center pb-2">{{ product.Price | currency }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<div class="container">
+  <div class="row">
+    <div
+        class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch"
+        *ngFor="
+          let product of productService.products
+        "
+      >
+        <div class="card mb-4" (click)="productService.getProduct(product.ProductId)">
+          <div class="card-body text-center">
+            <label for="">{{product.Name}}</label>
+            <img
+              class="img-fluid object-fit-sm-contain"
+              [src]="'data:image/png;base64,' + product.ThumbnailPhoto"
+            />
+        </div>
+      </div>
+  </div>
+</div> -->
+<!-- [src]="''../../assets/' + product.LargePhotoSrc + '.png'" -->

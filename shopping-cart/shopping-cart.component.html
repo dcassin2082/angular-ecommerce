@@ -1,0 +1,141 @@
+<div class="title-container" style="display: grid">
+  <h1 class="text-center"><span class="logo">Shopping</span> Cart</h1>
+  <img
+    class="img-fluid"
+    src="../assets/undraw_printing_invoices_-5-r4r.svg"
+    style="height: 400px"
+    alt=""
+  />
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="row">
+      <div class="col-lg-8 mt-2">
+        <div
+          class="row"
+          *ngFor="
+            let i = index;
+            let product;
+            of: shoppingCartService.selectedProducts | filterUnique
+          "
+        >
+          <div class="col-md-6">
+            <p>
+              <a
+                (click)="getProduct(product.ProductId)"
+                data-bs-toggle="modal"
+                data-bs-target="#productModal"
+              >
+                <img
+                  [src]="
+                    '../../../assets/Large/' + product.LargePhotoSrc + '.png'
+                  "
+                />
+              </a>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <div
+              class="row clickable-row"
+              (click)="getProduct(product.ProductId)"
+            >
+              <h5 class="row-image-desc sp-hover">
+                {{ product.Name }}
+              </h5>
+              <p>
+                {{ product.Description }}
+              </p>
+            </div>
+            <div class="row">
+              <div class="col">
+                <p style="border: 0" (click)="getProduct(product.ProductId)">
+                  Price:
+                  <span class="price">{{ product.Price | currency }}</span>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <p (click)="getProduct(product.ProductId)">
+                  Quantity: <span class="p-desc">{{ product.LineCount }}</span>
+                </p>
+                <p>
+                  <a title="Remove" (click)="removeCartItem(product)">
+                    <i
+                      class="fa fa-minus-circle fa-sm"
+                      style="text-decoration: none; color: #5f8ebb"
+                    ></i
+                    >&nbsp; Remove
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 p-0">
+        <div class="card" style="margin-right: 0">
+          <p class="display-6 text-center" style="color: #264278">
+            <strong>Cart Totals</strong>
+          </p>
+
+          <div class="card-body">
+            <div class="row mb-2">
+              <div class="col">
+                <p>
+                  <strong>Items: </strong>
+                  <span class="p-desc">{{ productService.productsCount }}</span>
+                </p>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col">
+                <p class="form-detail">
+                  <strong>SubTotal: </strong>
+                  <span class="p-desc">{{
+                    shoppingCartService.cartTotal | currency
+                  }}</span>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <a
+                  *ngIf="productService.productsCount > 0"
+                  class="btn btn-link"
+                  (click)="goToCheckout()"
+                  ><i class="fa fa-check-square"></i> Go to Checkout</a
+                >
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col">
+                <span>
+                  <a class="btn btn-link" (click)="continueShopping()"
+                    ><i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                    Continue Shopping</a
+                  >
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <small>
+              <strong>Note: </strong>For Demonstration purposes only. No actual
+              consumer information is saved on either the products, shopping
+              cart, checkout, or confirmation pages
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

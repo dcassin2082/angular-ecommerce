@@ -1,0 +1,54 @@
+$blue: #087474;
+
+.reveal{
+  position: relative;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: 0.5s all ease;
+}
+.reveal.active{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+img:hover {
+  // border: solid 1px #f0eaea;
+  // background: #fff;
+  // border-radius: 5px;
+  // padding:2em;
+  cursor: pointer;
+}
+
+.card {
+  margin-bottom: 3em !important;
+  width: 100% !important;
+}
+
+.card-header {
+  color: #2b313b;
+  cursor: pointer;
+}
+
+.card-header, .card-footer {
+  background: #fff !important;
+  border: none !important;
+}
+
+.card-no-click {
+  pointer-events: none !important;
+}
+
+h5:hover {
+  color: sandybrown;
+}
+
+.featured-products {
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 991px) {
+  .featured-products {
+    font-size: 1em;
+  }
+}
+

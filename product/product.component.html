@@ -1,0 +1,388 @@
+<div class="title-container" style="display: grid">
+  <h1 class="text-center"><span class="logo">Product</span> Details</h1>
+  <img
+    class="img-fluid"
+    src="../assets/undraw_printing_invoices_-5-r4r.svg"
+    style="height: 400px"
+    alt=""
+  />
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col pull-left">
+      <button (click)="goBack()" class="btn btn-link pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i> Back
+      </button>
+    </div>
+    <div class="col pull-right" *ngIf="productService.productsCount > 0">
+      <button
+        (click)="productService.goToCart()"
+        class="btn btn-link pull-right"
+      >
+        <i class="fa fa-shopping-cart"></i> Cart ({{
+          productService.productsCount
+        }})
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-9 offset-xl-1">
+      <div class="row mt-4">
+        <div class="col">
+          <p class="display-6">
+            <strong>{{ productService.product.Name }}</strong>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col pb-2">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-xl-8">
+          {{ productService.product.Description }}
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-xl-6 pb-2">
+          <img
+            [src]="
+              '../../../assets/Large/' +
+              productService.product.LargePhotoSrc +
+              '.png'
+            "
+          />
+        </div>
+        <!-- <div class="col">
+          <div class="row mt-4">
+            <div class="col-xl-8 pb-2">
+              <a
+                class="btn btn-primary"
+                (click)="addToCart(productService.product)"
+              >
+                <i class="bi bi-cart-plus-fill"></i> Add to Cart</a
+              >
+            </div>
+          </div>
+        </div> -->
+      </div>
+
+      <div class="row mt-2">
+        <div class="col pb-2">
+          <h4>{{ productService.product.Price | currency }}</h4>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-xl-8 pb-2">
+          <a class="btn btn-link" (click)="addToCart(productService.product)">
+            <i class="fa fa-plus"></i> Add to Cart</a
+          >
+        </div>
+      </div>
+      <div class="row mt-2 mb-2">
+        <div
+          class="col-6 col-sm-3 col-lg-2 pb-4"
+          *ngIf="productService.sizes && productService.sizes.length > 1"
+        >
+          <h6><label for="size" class="control-label">Size</label></h6>
+          <select
+            name="size"
+            id="size"
+            [(ngModel)]="productService.size"
+            (change)="
+              getProductBySize(
+                $event.target.value,
+                productService.product.Color
+              )
+            "
+            class="form-select"
+          >
+            <option *ngFor="let size of productService.sizes" [value]="size">
+              {{ size }}
+              {{ productService.product.SizeUnitMeasureCode | lowercase }}
+            </option>
+          </select>
+        </div>
+        <!-- <div
+          class="col-xl-3"
+          *ngIf="productService.sizes && productService.sizes.length > 1"
+        >
+          <h6><label for="color" class="control-label">Color</label></h6>
+          <select
+            name="color"
+            id="color"
+            [(ngModel)]="productService.color"
+            (change)="
+              getProductByColor(
+                $event.target.value,
+                productService.product.Size
+              )
+            "
+            class="form-select"
+          >
+            <option *ngFor="let color of productService.colors" [value]="color">
+              {{ color }}
+            </option>
+          </select>
+        </div> -->
+        <div
+          class="col-xl-3"
+          *ngIf="
+            productService.product.Weight !== null &&
+            productService.category != 'Clothing'
+          "
+        >
+          <h6>Weight:</h6>
+          {{ productService.product.Weight }}
+          {{ productService.product.WeightUnitMeasureCode | lowercase }}
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-xl-4"
+          (click)="
+            productService.getProduct(product.ProductId);
+            updateRecentlyViewedProducts()
+          "
+          *ngFor="let product of productService.relatedProducts"
+        >
+          <h6>
+            <label for="thumbnail">{{ product.Color }}</label>
+          </h6>
+          <img
+            id="thumbnail"
+            [src]="
+              '../../../assets/Thumbnails/' + product.ThumbnailPhotoSrc + '.png'
+            "
+            style="padding: 1em; border-radius: 8px; border: solid 1px #dadada"
+          />
+        </div>
+      </div>
+      <div class="row mt-4" *ngIf="!isEmpty(productService.product)">
+        <div class="col-md-9">
+          <h5>Reviews for {{ productService.product.Name }}</h5>
+          <div class="row">
+            <div class="col">
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Dignissim convallis aenean et tortor.
+              </p>
+              <!-- <p>
+                        One of my favorite bikes so far !!!Arrived nicely packaged.took me about an hour to put it
+                        together, Let me start by saying that I am 6" , 160 lbs. This bike is perfect size for me. Light
+                        as a feather ,The bike is not heavy like some others I have owned before,
+                        This bike feels very well made,give away a lot of useful accessorieswith. Very smooth ride for a
+                        very good price, I definitely recommend this to everyone!
+                    </p> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>
+                Eget magna fermentum iaculis eu non diam phasellus. Pulvinar
+                neque laoreet suspendisse interdum consectetur libero. Dignissim
+                convallis aenean et tortor at risus viverra adipiscing at.
+              </p>
+              <!-- <p>
+                        Like the style, features and aluminum frame and hidden welds and color options for this MTB for
+                        women.
+                        Customer service is great. They responded qoickly and took care of all concerns.
+                    </p> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pb-2">
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>
+                Ut venenatis tellus in metus vulputate eu scelerisque felis
+                imperdiet. Tristique risus nec feugiat in. Augue interdum velit
+                euismod in pellentesque massa placerat. Pellentesque elit
+                ullamcorper dignissim cras tincidunt lobortis. Velit egestas dui
+                id ornare arcu odio ut.
+              </p>
+              <!-- <p>
+                        There is a shortage at my local bike store because of covid, so I had to buy a bike online. But
+                        it turned out to be great! It's a good value for the money. Beautiful appearance. Sturdy frame.
+                        I love the Shimano gear shifter kit. As an entry-level mountain bike, it meets all my needs.
+                        Even though there were some small problems,
+                        they were resolved quickly after contacting the seller. Great purchase overall.
+                    </p> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Dignissim convallis aenean et tortor.
+              </p>
+              <!-- <p>
+                      One of my favorite bikes so far !!!Arrived nicely packaged.took me about an hour to put it
+                      together, Let me start by saying that I am 6" , 160 lbs. This bike is perfect size for me. Light
+                      as a feather ,The bike is not heavy like some others I have owned before,
+                      This bike feels very well made,give away a lot of useful accessorieswith. Very smooth ride for a
+                      very good price, I definitely recommend this to everyone!
+                  </p> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>
+                Eget magna fermentum iaculis eu non diam phasellus. Pulvinar
+                neque laoreet suspendisse interdum consectetur libero. Dignissim
+                convallis aenean et tortor at risus viverra adipiscing at.
+              </p>
+              <!-- <p>
+                      Like the style, features and aluminum frame and hidden welds and color options for this MTB for
+                      women.
+                      Customer service is great. They responded qoickly and took care of all concerns.
+                  </p> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pb-2">
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+              <i class="demo-title-sm fa fa-star"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>
+                Ut venenatis tellus in metus vulputate eu scelerisque felis
+                imperdiet. Tristique risus nec feugiat in. Augue interdum velit
+                euismod in pellentesque massa placerat. Pellentesque elit
+                ullamcorper dignissim cras tincidunt lobortis. Velit egestas dui
+                id ornare arcu odio ut.
+              </p>
+              <!-- <p>
+                      There is a shortage at my local bike store because of covid, so I had to buy a bike online. But
+                      it turned out to be great! It's a good value for the money. Beautiful appearance. Sturdy frame.
+                      I love the Shimano gear shifter kit. As an entry-level mountain bike, it meets all my needs.
+                      Even though there were some small problems,
+                      they were resolved quickly after contacting the seller. Great purchase overall.
+                  </p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5 mb-5">
+        <div class="col">
+          <small style="color: #585858">
+            * For
+            <strong>Demonstration purposes only</strong>. No actual consumer
+            information is saved on either the products, shopping cart,
+            checkout, or confirmation pages
+          </small>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-md-8" *ngIf="isEmpty(productService.product)">
+          <div class="row">
+            <div class="col">
+              <p class="p-desc">no products found</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-2 pt-4">
+      <h5>Recently Viewed</h5>
+      <hr />
+      <div class="row" *ngFor="let product of recentProducts">
+        <div class="col">
+          <div class="card-body">
+            <div class="row mb-2">
+              <div class="col">
+                <a (click)="productService.getProduct(product.ProductId)">
+                  <img
+                    [src]="
+                      '../../../assets/Thumbnails/' +
+                      product.ThumbnailPhotoSrc +
+                      '.png'
+                    "
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div
+                class="col"
+                (click)="productService.getProduct(product.ProductId)"
+              >
+                <span class="row-image-desc"> {{ product.Name }} </span>
+                <div class="row mt-2">
+                  <div class="col-md-6 pb-2">
+                    <i class="demo-title-sm fa fa-star"></i>
+                    <i class="demo-title-sm fa fa-star"></i>
+                    <i class="demo-title-sm fa fa-star"></i>
+                    <i class="demo-title-sm fa fa-star"></i>
+                    <i class="demo-title-sm fa fa-star"></i>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-6">
+                    <p class="p-desc">{{ product.Price | currency }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

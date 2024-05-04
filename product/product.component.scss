@@ -1,0 +1,15 @@
+$blue: #0080FF;
+
+@media only screen and (max-width: 1199px) {
+  .card-body {
+    border: none !important;
+  }
+}
+
+.btn-primary {
+  background: $blue !important;
+}
+.btn-primary:hover {
+  background: #439df7 !important;
+  border-color: #439df7 !important;
+}
